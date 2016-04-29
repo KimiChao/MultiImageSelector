@@ -332,6 +332,13 @@ public class MultiImageSelectorFragment extends Fragment {
      * 选择相机
      */
     private void showCameraAction() {
+
+        // 判断选择数量问题
+        if(mDesireImageCount == resultList.size()){
+            Toast.makeText(getActivity(), R.string.msg_amount_limit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // 跳转到系统照相机
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null){

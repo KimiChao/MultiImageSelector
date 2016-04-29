@@ -72,17 +72,13 @@ public class MultiImageSelectorActivity extends FragmentActivity implements Mult
 
         // 完成按钮
         mSubmitButton = (Button) findViewById(R.id.commit);
-        if(resultList == null || resultList.size()<=0){
-            mSubmitButton.setText(R.string.action_done);
-            mSubmitButton.setEnabled(false);
-        }else{
-            updateDoneText();
-            mSubmitButton.setEnabled(true);
-        }
+        updateDoneText();
+        mSubmitButton.setEnabled(true);
+
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(resultList != null && resultList.size() >0){
+                if(resultList != null && resultList.size() >=0){
                     // 返回已选择的图片数据
                     Intent data = new Intent();
                     data.putStringArrayListExtra(EXTRA_RESULT, resultList);
@@ -113,12 +109,7 @@ public class MultiImageSelectorActivity extends FragmentActivity implements Mult
             resultList.add(path);
         }
         // 有图片之后，改变按钮状态
-        if(resultList.size() > 0){
-            updateDoneText();
-            if(!mSubmitButton.isEnabled()){
-                mSubmitButton.setEnabled(true);
-            }
-        }
+        updateDoneText();
     }
 
     @Override
@@ -127,11 +118,6 @@ public class MultiImageSelectorActivity extends FragmentActivity implements Mult
             resultList.remove(path);
         }
         updateDoneText();
-        // 当为选择图片时候的状态
-        if(resultList.size() == 0){
-            mSubmitButton.setText(R.string.action_done);
-            mSubmitButton.setEnabled(false);
-        }
     }
 
     @Override
